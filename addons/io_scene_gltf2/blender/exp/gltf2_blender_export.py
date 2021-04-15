@@ -62,11 +62,12 @@ def __export(export_settings):
     exporter = GlTF2Exporter(export_settings)
     __gather_gltf(exporter, export_settings)
     buffer = __create_buffer(exporter, export_settings)
-    exporter.finalize_images()
-    json = __fix_json(exporter.glTF.to_dict())
 
     export_user_extensions('gather_gltf_hook', export_settings, exporter.glTF)
     exporter.traverse_extensions()
+
+    exporter.finalize_images()    
+    json = __fix_json(exporter.glTF.to_dict())
 
     return json, buffer
 
